@@ -35,9 +35,10 @@ npx hermesx --version
 
 ## Features
 
-- ✅ **TypeScript Support**: Runs TypeScript code seamlessly using esbuild for bundling
+- ✅ **TypeScript Support**: Runs TypeScript code seamlessly
+- ✅ **Metro Bundler**: Uses Metro bundler for bundling, so it's very similar to how React Native bundles code
 - ✅ **Hermes Engine**: Uses same engine as React Native
-- ✅ **Automatic Setup**: Downloads and caches Hermes binary on first run
+- ✅ **Automatic Setup**: Downloads and caches latest Hermes binary on first run
 - ✅ **External Modules**: Import and use npm packages like lodash, axios, etc.
 
 ## Examples
@@ -306,7 +307,7 @@ bun run test
 ### How it works
 
 1. **First run**: Downloads the appropriate Hermes binary for your platform and caches it in `~/.cache/hermesx/`
-2. **Bundling**: Uses esbuild to transpile TypeScript and resolve external modules
+2. **Bundling**: Uses Metro bundler to transpile TypeScript and resolve external modules
 3. **Globals Injection**: Polyfills some APIs that are not available in Hermes
 4. **Execution**: Runs the bundled code using the Hermes JavaScript engine
 5. **Cleanup**: Removes temporary files after execution

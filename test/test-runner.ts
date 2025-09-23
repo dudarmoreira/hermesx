@@ -217,7 +217,82 @@ class TestRunner {
       this.cleanupTestFile(testFile);
     });
 
-    // Test 6: Error handling (file not found)
+    // Test 6: ES6 Classes transpilation
+    await this.runTest("ES6 Classes transpilation", async () => {
+      const testFile = this.createTestFile(
+        "classes.ts",
+        `
+        class Animal {
+          name: string;
+          
+          constructor(name: string) {
+            this.name = name;
+          }
+          
+          speak(): string {
+            return \`\${this.name} makes a sound\`;
+          }
+        }
+        
+        class Dog extends Animal {
+          breed: string;
+          
+          constructor(name: string, breed: string) {
+            super(name);
+            this.breed = breed;
+          }
+          
+          speak(): string {
+            return \`\${this.name} the \${this.breed} barks\`;
+          }
+          
+          getInfo(): string {
+            return \`Name: \${this.name}, Breed: \${this.breed}\`;
+          }
+        }
+        
+        const animal = new Animal("Generic Animal");
+        const dog = new Dog("Rex", "German Shepherd");
+        
+        console.log(animal.speak());
+        console.log(dog.speak());
+        console.log(dog.getInfo());
+        
+        // Test instanceof
+        console.log("Is dog instance of Animal:", dog instanceof Animal);
+        console.log("Is dog instance of Dog:", dog instanceof Dog);
+      `
+      );
+
+      const result = await this.runHermesX(testFile);
+
+      if (result.code !== 0) {
+        throw new Error(
+          `Process failed with code ${result.code}: ${result.stderr}`
+        );
+      }
+
+      // Check all expected outputs
+      const expectedOutputs = [
+        "Generic Animal makes a sound",
+        "Rex the German Shepherd barks",
+        "Name: Rex, Breed: German Shepherd",
+        "Is dog instance of Animal: true",
+        "Is dog instance of Dog: true",
+      ];
+
+      for (const expected of expectedOutputs) {
+        if (!result.stdout.includes(expected)) {
+          throw new Error(
+            `Expected "${expected}" in output, got: ${result.stdout}`
+          );
+        }
+      }
+
+      this.cleanupTestFile(testFile);
+    });
+
+    // Test 7: Error handling (file not found)
     await this.runTest("Error handling", async () => {
       const result = await this.runHermesX("nonexistent.ts");
 
@@ -230,7 +305,7 @@ class TestRunner {
       }
     });
 
-    // Test 7: CLI help
+    // Test 8: CLI help
     await this.runTest("CLI help option", async () => {
       const result = await this.runHermesX("--help");
 
@@ -245,7 +320,7 @@ class TestRunner {
       }
     });
 
-    // Test 8: CLI version
+    // Test 9: CLI version
     await this.runTest("CLI version option", async () => {
       const result = await this.runHermesX("--version");
 
@@ -258,7 +333,7 @@ class TestRunner {
       }
     });
 
-    // Test 9: External module imports
+    // Test 10: External module imports
     await this.runTest("External module imports", async () => {
       const testFile = this.createTestFile(
         "modules.ts",
@@ -301,7 +376,7 @@ class TestRunner {
       this.cleanupTestFile(testFile);
     });
 
-    // Test setInterval polyfill
+    // Test 11: setInterval polyfill
     await this.runTest("Testing setInterval polyfill", async () => {
       const testContent = `
 let count = 0;
@@ -335,7 +410,7 @@ const intervalId = setInterval(() => {
       this.cleanupTestFile(testFile);
     });
 
-    // Test enhanced console formatting
+    // Test 12: enhanced console formatting
     await this.runTest("Testing enhanced console formatting", async () => {
       const testContent = `
 // Test console formatting with objects
@@ -378,7 +453,7 @@ console.log("console formatting test passed");
       this.cleanupTestFile(testFile);
     });
 
-    // Test performance measurement APIs
+    // Test 13: performance measurement APIs
     await this.runTest("Testing performance measurement APIs", async () => {
       const testContent = `
 // Test console.time/timeEnd

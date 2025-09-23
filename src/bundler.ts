@@ -3,8 +3,11 @@ import { existsSync } from "fs";
 import { tmpdir } from "os";
 import { randomBytes } from "crypto";
 import { fileURLToPath } from "node:url";
-import * as esbuild from "esbuild";
+import { createRequire } from "node:module";
+import * as Metro from "metro";
 import { HermesXError } from "./hermes-binary.js";
+
+const require = createRequire(import.meta.url);
 
 export class Bundler {
   async bundleTypeScript(
@@ -26,35 +29,41 @@ export class Bundler {
     const outputPath = join(tempDir, `hermesx-bundle-${randomSuffix}.js`);
 
     try {
-      console.log(`Bundling ${basename(filePath)} with esbuild...`);
+      console.log(`Bundling ${basename(filePath)} with Metro...`);
 
-      // Use esbuild for TypeScript compilation and bundling
-      const result = await esbuild.build({
-        entryPoints: [absolutePath],
-        outfile: outputPath,
-        bundle: true,
-        format: "iife",
-        target: "es5",
-        platform: "neutral",
-        write: true,
+      // Load Metro config with Hermes-optimized settings
+      const baseConfig = await Metro.loadConfig();
+
+      // Create Hermes-compatible config
+      const metroConfig = {
+        ...baseConfig,
+        resolver: {
+          ...baseConfig.resolver,
+          sourceExts: ["js", "jsx", "ts", "tsx", "json"],
+          assetExts: [],
+        },
+        transformer: {
+          ...baseConfig.transformer,
+          babelTransformerPath: require.resolve(
+            "@react-native/metro-babel-transformer"
+          ),
+          getTransformOptions: async () => ({
+            transform: {
+              experimentalImportSupport: false,
+              inlineRequires: true,
+            },
+          }),
+        },
+      };
+
+      // Bundle with Metro
+      await Metro.runBuild(metroConfig, {
+        entry: absolutePath,
+        out: outputPath,
+        dev: false,
         minify: false,
-        sourcemap: false,
-        treeShaking: true,
-        metafile: false,
+        platform: "android", // Use android platform which targets Hermes
       });
-
-      if (result.errors.length > 0) {
-        const errorMessages = result.errors
-          .map(
-            (err: esbuild.Message) =>
-              `${err.location?.file}:${err.location?.line}:${err.location?.column}: ${err.text}`
-          )
-          .join("\n");
-        throw new HermesXError(
-          `esbuild compilation failed:\n${errorMessages}`,
-          "COMPILATION_FAILED"
-        );
-      }
 
       // Prepend globals to the bundled file
       try {
