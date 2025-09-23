@@ -1,0 +1,54 @@
+{
+  "name": "hermesx",
+  "version": "0.1.0",
+  "description": "Run TypeScript files with Hermes JS engine",
+  "author": "Daniel Suchy",
+  "homepage": "https://github.com/Nodonisko/hermesx",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nodonisko/hermesx.git"
+  },
+  "keywords": [
+    "typescript",
+    "hermes",
+    "cli",
+    "bundler"
+  ],
+  "bin": {
+    "hermesx": "./bin/hermesx.js"
+  },
+  "main": "lib/cli.js",
+  "type": "module",
+  "files": [
+    "bin/",
+    "lib/",
+    "hermes-globals.js"
+  ],
+  "scripts": {
+    "build": "bun run tsc",
+    "test": "bun run build && bun test/test-runner.ts",
+    "prepublishOnly": "bun run build",
+    "dev": "bun run --watch src/cli.ts"
+  },
+  "dependencies": {
+    "@types/tar": "^6.1.11",
+    "commander": "^11.1.0",
+    "node-fetch": "^3.3.2",
+    "tar": "^6.2.1",
+    "typescript": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/lodash": "^4.17.20",
+    "@types/node": "^20.0.0",
+    "lodash": "^4.17.21"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "license": "MIT"
+}

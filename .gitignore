@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+bun.lockb
+
+# Build output
+lib/
+
+# Test compiled files
+test/*.js
+test/*.d.ts
+
+# Temporary files
+*.tmp
+.DS_Store
+
+# Cache directories
+.cache/
