@@ -51,14 +51,9 @@ program
   .description("Run TypeScript files with Hermes JS engine")
   .version("0.1.0")
   .argument("<file>", "TypeScript file to execute")
-  .allowUnknownOption() // Pass through args to script
-  .action(async (file: string, options: any, command: Command) => {
-    // Get script arguments (everything after the file argument)
-    const allArgs = process.argv.slice(2);
-    const fileIndex = allArgs.indexOf(file);
-    const scriptArgs = fileIndex >= 0 ? allArgs.slice(fileIndex + 1) : [];
-
-    await runWithHermes(file, scriptArgs);
+  .argument("[args...]", "Arguments to pass to the script")
+  .action(async (file: string, args: string[] = []) => {
+    await runWithHermes(file, args);
   });
 
 // Handle unhandled rejections
