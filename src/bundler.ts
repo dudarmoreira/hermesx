@@ -34,7 +34,7 @@ export class Bundler {
         outfile: outputPath,
         bundle: true,
         format: "iife",
-        target: "es2020",
+        target: "es5",
         platform: "neutral",
         write: true,
         minify: false,
