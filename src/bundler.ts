@@ -32,32 +32,20 @@ export class Bundler {
       console.log(`Bundling ${basename(filePath)} with Metro...`);
 
       // Load Metro config with Hermes-optimized settings
-      const baseConfig = await Metro.loadConfig();
-
-      // Create Hermes-compatible config
-      const metroConfig = {
-        ...baseConfig,
+      const baseConfig = await Metro.loadConfig(undefined, {
         resolver: {
-          ...baseConfig.resolver,
           sourceExts: ["js", "jsx", "ts", "tsx", "json"],
           assetExts: [],
         },
         transformer: {
-          ...baseConfig.transformer,
           babelTransformerPath: require.resolve(
             "@react-native/metro-babel-transformer"
           ),
-          getTransformOptions: async () => ({
-            transform: {
-              experimentalImportSupport: false,
-              inlineRequires: true,
-            },
-          }),
         },
-      };
+      });
 
       // Bundle with Metro
-      await Metro.runBuild(metroConfig, {
+      await Metro.runBuild(baseConfig, {
         entry: absolutePath,
         out: outputPath,
         dev: false,

@@ -47,7 +47,7 @@ npx hermesx --version
 
 ```typescript
 // hello.ts
-const message: string = "Hello from HermesX!";
+const message: string = "Hello from hermesx!";
 const user = { name: "Alice", age: 30, active: true };
 const items = [1, 2, { type: "example" }];
 
@@ -58,7 +58,7 @@ console.log("Items array:", items);
 
 ```bash
 hermesx hello.ts
-# Output: Hello from HermesX!
+# Output: Hello from hermesx!
 # User object: {
 #   "name": "Alice",
 #   "age": 30,
@@ -187,11 +187,9 @@ hermesx benchmark.ts
 - ✅ **macOS** (Intel and Apple Silicon)
 - ✅ **Linux** (x86_64)
 
-### Global APIs
+#### Available APIs
 
-HermesX provides a Node.js-compatible environment with the following APIs:
-
-#### ✅ Available APIs
+We are limited with Hermes's APIs, but we try to polyfill some basic ones.
 
 **Console APIs:**
 
@@ -230,7 +228,7 @@ HermesX provides a Node.js-compatible environment with the following APIs:
 **Timer Functions:**
 
 - `setTimeout`, `clearTimeout`, `setImmediate`,
-- `setInterval`, `clearInterval` (polyfilled internally by HermesX)
+- `setInterval`, `clearInterval` (polyfilled internally by `hermesx`)
 
 **Text Processing:**
 

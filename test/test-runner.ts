@@ -74,7 +74,7 @@ class TestRunner {
   }
 
   async runAllTests(): Promise<void> {
-    console.log("🚀 Running HermesX Test Suite\n");
+    console.log("🚀 Running hermesx Test Suite\n");
 
     // Test 1: Basic TypeScript execution
     await this.runTest("Basic TypeScript execution", async () => {

@@ -1,6 +1,6 @@
 {
   "name": "hermesx",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Run TypeScript files with Hermes JS engine",
   "author": "Daniel Suchy",
   "homepage": "https://github.com/Nodonisko/hermesx",
