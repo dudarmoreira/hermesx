@@ -4,6 +4,14 @@ Run TypeScript files using the Hermes JavaScript engine with automatic transpila
 
 It's useful especially if you want to do performance profiling of your code quickly on your computer without need to building whole React Native project. Problem with using Node/Bun is that it's engine V8/JSC (+JIT) is much faster so it doesn't give you accurate results for how code will perform in React Native app.
 
+## Features
+
+- ✅ **TypeScript Support**: Runs TypeScript code seamlessly
+- ✅ **Metro Bundler**: Uses Rspack + Babel with React Native preset, so it's similar to how React Native bundles code
+- ✅ **Hermes Engine**: Uses same engine as React Native
+- ✅ **Automatic Setup**: Downloads and caches latest Hermes binary on first run
+- ✅ **External Modules**: Import and use npm packages like lodash, date-fns, etc. from current project
+
 ## Installation
 
 ```bash
@@ -32,14 +40,6 @@ npx hermesx --help
 # Show version
 npx hermesx --version
 ```
-
-## Features
-
-- ✅ **TypeScript Support**: Runs TypeScript code seamlessly
-- ✅ **Metro Bundler**: Uses Rspack + Babel with React Native preset, so it's similar to how React Native bundles code
-- ✅ **Hermes Engine**: Uses same engine as React Native
-- ✅ **Automatic Setup**: Downloads and caches latest Hermes binary on first run
-- ✅ **External Modules**: Import and use npm packages like lodash, date-fns, etc. from current project
 
 ## Limitations
 
