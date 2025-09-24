@@ -110,88 +110,12 @@ hermesx modules.ts
 # Output: Sum: 30
 ```
 
-### Performance Measurement
-
-```typescript
-// benchmark.ts
-// Note: All timing functions use Date.now() internally (millisecond precision only)
-function fibonacciRecursive(n: number): number {
-  if (n <= 1) return n;
-  return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
-}
-
-function fibonacciIterative(n: number): number {
-  if (n <= 1) return n;
-  let a = 0,
-    b = 1;
-  for (let i = 2; i <= n; i++) {
-    [a, b] = [b, a + b];
-  }
-  return b;
-}
-
-// Method 1: Using console.time/timeEnd (most common)
-console.time("recursive");
-const result1 = fibonacciRecursive(30);
-console.timeEnd("recursive");
-
-console.time("iterative");
-const result2 = fibonacciIterative(30);
-console.timeEnd("iterative");
-
-// Method 2: Using performance API (returns floating point milliseconds)
-performance.mark("start");
-fibonacciIterative(30);
-performance.mark("end");
-const measure = performance.measure("fibonacci-iterative", "start", "end");
-console.log(`Duration: ${measure?.duration}ms`);
-
-// Method 3: Using performance.now() (limited precision warning)
-const start = performance.now(); // Returns whole milliseconds (not fractional like native)
-fibonacciIterative(30);
-const end = performance.now();
-console.log(`Performance.now timing: ${end - start}ms`); // May show 0ms for fast operations
-
-// Method 4: Using benchmark utility (multiple iterations with stats)
-benchmark("Fibonacci Recursive", () => fibonacciRecursive(25), 5);
-benchmark("Fibonacci Iterative", () => fibonacciIterative(25), 5);
-
-// Method 5: Manual timing with Date.now() (lowest level)
-const manualStart = Date.now();
-fibonacciIterative(30);
-const manualEnd = Date.now();
-console.log(`Manual timing: ${manualEnd - manualStart}ms`);
-```
-
-```bash
-hermesx benchmark.ts
-# Output:
-# recursive: 45ms
-# iterative: 1ms
-# fibonacci-iterative: 0ms
-# Duration: 0ms
-# Performance.now timing: 1ms
-# Benchmark: Fibonacci Recursive
-#   Iterations: 5
-#   Total: 23ms
-#   Average: 4.60ms
-#   Min: 4ms
-#   Max: 6ms
-# Benchmark: Fibonacci Iterative
-#   Iterations: 5
-#   Total: 2ms
-#   Average: 0.40ms
-#   Min: 0ms
-#   Max: 1ms
-# Manual timing: 0ms
-```
-
-### Platform Support
+## Platform Support
 
 - ✅ **macOS** (Intel and Apple Silicon)
 - ✅ **Linux** (x86_64)
 
-#### Available APIs
+## Available APIs
 
 We are limited with Hermes's APIs, but we try to polyfill some basic ones.
 
@@ -250,26 +174,6 @@ We are limited with Hermes's APIs, but we try to polyfill some basic ones.
 - `createHeapSnapshot()` - Create heap snapshot for debugging
 - `loadSegment()` - Load code segments
 
-#### ❌ Not Available
-
-The following APIs are **not available** in the Hermes environment:
-
-**Node.js APIs:**
-
-- `require`, `module`, `exports` (use ES6 imports instead)
-- `__dirname`, `__filename` (not applicable in bundled environment)
-- `Buffer` (use standard JavaScript alternatives like `ArrayBuffer`)
-- `global` (use `globalThis` instead)
-- File system APIs (`fs`, `path`, etc.)
-- Network APIs (`http`, `https`, etc.)
-
-**Web APIs:**
-
-- `fetch`, `Request`, `Response`, `Headers` (no network access)
-- `URL`, `URLSearchParams` (not available)
-- `FormData`, `AbortController` (not available)
-- `TextDecoder` (not available, use alternatives)
-
 **Performance APIs:**
 
 > [!WARNING]  
@@ -279,6 +183,23 @@ The following APIs are **not available** in the Hermes environment:
 - `performance.mark()` - Create named performance marks
 - `performance.measure()` - Measure time between marks
 - `benchmark()` - Custom utility for running performance benchmarks
+
+### ❌ Not Available
+
+The following APIs are **not available** in the Hermes environment:
+
+**Node.js APIs:**
+
+- `Buffer` (use standard JavaScript alternatives like `ArrayBuffer`)
+- `global` (use `globalThis` instead)
+- Node.js APIs (`fs`, `path`, `http`, `https`, etc.)
+
+**Web APIs:**
+
+- `fetch`, `Request`, `Response`, `Headers` (no network access)
+- `URL`, `URLSearchParams` (not available)
+- `FormData`, `AbortController` (not available)
+- `TextDecoder` (not available, use alternatives)
 
 ## Development
 
