@@ -1,8 +1,8 @@
 # hermesx
 
-Run TypeScript files using the Hermes JavaScript engine with automatic transpilation. Similar to `tsx` but for Hermes.
+Run TypeScript files using the Hermes JavaScript engine with automatic transpilation. Basically `tsx` but with Hermes as engine.
 
-It's useful especially if you want to profile code performance quickly on your computer without need to building whole React Native project. Problem with using Node is that it's much faster because of V8 (+JIT) engine so it doesn't give you accurate results for how code will perform in React Native app.
+It's useful especially if you want to do performance profiling of your code quickly on your computer without need to building whole React Native project. Problem with using Node/Bun is that it's engine V8/JSC (+JIT) is much faster so it doesn't give you accurate results for how code will perform in React Native app.
 
 ## Installation
 
@@ -36,10 +36,14 @@ npx hermesx --version
 ## Features
 
 - ✅ **TypeScript Support**: Runs TypeScript code seamlessly
-- ✅ **Metro Bundler**: Uses Metro bundler for bundling, so it's very similar to how React Native bundles code
+- ✅ **Metro Bundler**: Uses Rspack + Babel with React Native preset, so it's similar to how React Native bundles code
 - ✅ **Hermes Engine**: Uses same engine as React Native
 - ✅ **Automatic Setup**: Downloads and caches latest Hermes binary on first run
-- ✅ **External Modules**: Import and use npm packages like lodash, axios, etc.
+- ✅ **External Modules**: Import and use npm packages like lodash, date-fns, etc. from current project
+
+## Limitations
+
+Hermes has very limited APIs, so some features are not available (for example `fetch`). Please check [Limitations](#limitations) section for more details.
 
 ## Examples
 

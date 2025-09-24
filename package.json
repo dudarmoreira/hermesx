@@ -1,6 +1,6 @@
 {
   "name": "hermesx",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Run TypeScript files with Hermes JS engine",
   "author": "Daniel Suchy",
   "homepage": "https://github.com/Nodonisko/hermesx",
@@ -22,7 +22,8 @@
   "files": [
     "bin/",
     "lib/",
-    "hermes-globals.js"
+    "hermes-globals.js",
+    "babel.config.cjs"
   ],
   "scripts": {
     "build": "bun run tsc",
@@ -31,14 +32,13 @@
     "dev": "bun run --watch src/cli.ts"
   },
   "dependencies": {
-    "@react-native/metro-babel-transformer": "^0.81.1",
-    "@react-native/metro-config": "^0.81.1",
+    "@babel/runtime": "^7.26.0",
+    "@react-native/babel-preset": "^0.81.1",
+    "@rspack/core": "^1.5.6",
     "@types/tar": "^6.1.11",
+    "babel-loader": "^10.0.0",
     "commander": "^14.0.1",
-    "metro": "^0.83.2",
-    "metro-config": "^0.83.2",
     "node-fetch": "^3.3.2",
-    "react-native-monorepo-config": "^0.1.10",
     "tar": "^7.5.1",
     "typescript": "^5.3.0"
   },
@@ -46,7 +46,12 @@
     "@types/bun": "latest",
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.5.2",
-    "lodash": "^4.17.21"
+    "@types/ramda": "^0.31.1",
+    "date-fns": "^4.1.0",
+    "lodash": "^4.17.21",
+    "ramda": "^0.31.3",
+    "superstruct": "^2.0.2",
+    "zod": "^4.1.11"
   },
   "engines": {
     "node": ">=16.0.0"
